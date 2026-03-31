@@ -11,21 +11,13 @@ load_dotenv()
 
 app = FastAPI()
 
-raw_origin = os.getenv("REACT_DOT_SERVER", "")
 
-# This removes whitespace, literal quotes, AND trailing slashes
-clean_origin = raw_origin.strip().strip("\"'").rstrip("/")
 
-origins = [clean_origin]
-
-# Add this print statement so you can see the exact string in your Fly logs!
-print(f"========== REGISTERED CORS ORIGIN: '{clean_origin}' ==========")
-
-# origins = [os.getenv("REACT_DOT_SERVER").strip()]
+origins = [os.getenv("REACT_DOT_SERVER").strip()]
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=*,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
